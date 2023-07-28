@@ -5,8 +5,8 @@ app = FastAPI()
 
 @app.get('/')
 def index():
-    return 'hello'
+    return 'ok'
 
 @app.get('/blog/{id}')
 def show_id(id):
-    return f"Your id is {id}"
+    return f"Your id: {id}"

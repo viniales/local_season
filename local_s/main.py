@@ -1,7 +1,11 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
 
-@app.post('/system')
+
+
+
+@app.get('/')
 def create():
-    return 'creating'
+    return 'ok'
