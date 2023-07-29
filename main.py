@@ -25,6 +25,8 @@ def create(request: schemas.Player, db: Session = Depends(get_db)):
     db.refresh(new_player)
     return new_player
 
+
 @app.get('/player')
-def show_all(db: Session = Depends(get_db()):
-    pass
+def all_players(db: Session = Depends(get_db)):
+    players = db.query(models.Player).all()
+    return players
