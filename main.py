@@ -24,3 +24,7 @@ def create(request: schemas.Player, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_player)
     return new_player
+
+@app.get('/player')
+def show_all(db: Session = Depends(get_db()):
+    pass
