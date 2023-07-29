@@ -30,3 +30,9 @@ def create(request: schemas.Player, db: Session = Depends(get_db)):
 def all_players(db: Session = Depends(get_db)):
     players = db.query(models.Player).all()
     return players
+
+
+@app.get('/player/{id}')
+def player(id, db: Session = Depends(get_db)):
+    player = db.query(models.Player).filter(models.Player.id == id).first()
+    return player
