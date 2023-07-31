@@ -48,13 +48,14 @@ def update(id, request: schemas.Player, db: Session = Depends(get_db)):
     return 'updated'
 
 
-@app.get('/player')
+@app.get('/player', response_model=schemas.ShowPlayer)
+# with response_model we don't display id
 def all_players(db: Session = Depends(get_db)):
     players = db.query(models.Player).all()
     return players
 
 
-@app.get('/player/{id}', status_code=status.HTTP_200_OK)
+@app.get('/player/{id}', status_code=status.HTTP_200_OK, response_model=schemas.ShowPlayer)
 def player(id, response: Response, db: Session = Depends(get_db)):
     player = db.query(models.Player).filter(models.Player.id == id).first()
     if not player:
