@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, status, Response
+from fastapi import FastAPI, Depends, status, Response, HTTPException
 import models, schemas
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
@@ -26,6 +26,22 @@ def create(request: schemas.Player, db: Session = Depends(get_db)):
     return new_player
 
 
+@app.delete('/player/{id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete_player(id, db: Session = Depends(get_db)):
+    db.query(models.Player).filter(models.Player.id == id).delete(synchronize_session=False)
+    db.commit()
+    return 'done'
+
+
+@app.put('/player/{id}', status_code=status.HTTP_202_ACCEPTED)
+def update(id, request: schemas.Player, db: Session = Depends(get_db)):
+    db.query(models.Player).filter(models.Player.id == id).update(
+        {models.Player.name: request.name, models.Player.surname: request.surname, models.Player.age: request.age,
+         models.Player.team: request.team, models.Player.nationality: request.nationality})
+    db.commit()
+    return 'updated'
+
+
 @app.get('/player')
 def all_players(db: Session = Depends(get_db)):
     players = db.query(models.Player).all()
@@ -33,9 +49,10 @@ def all_players(db: Session = Depends(get_db)):
 
 
 @app.get('/player/{id}', status_code=status.HTTP_200_OK)
-def player(id, response: Response,db: Session = Depends(get_db)):
+def player(id, response: Response, db: Session = Depends(get_db)):
     player = db.query(models.Player).filter(models.Player.id == id).first()
     if not player:
-        response.status_code = status.HTTP_404_NOT_FOUND
-        return {'detail':f'Player with the id {id} is not available'}
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Player with the id {id} is not available')
+        # response.status_code = status.HTTP_404_NOT_FOUND
+        # return {'detail':f'Player with the id {id} is not available'}
     return player
