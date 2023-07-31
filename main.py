@@ -28,14 +28,20 @@ def create(request: schemas.Player, db: Session = Depends(get_db)):
 
 @app.delete('/player/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_player(id, db: Session = Depends(get_db)):
-    db.query(models.Player).filter(models.Player.id == id).delete(synchronize_session=False)
+    player = db.query(models.Player).filter(models.Player.id == id)
+    if not player.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Player with id {id} not found')
+    player.delete(synchronize_session=False)
     db.commit()
     return 'done'
 
 
 @app.put('/player/{id}', status_code=status.HTTP_202_ACCEPTED)
 def update(id, request: schemas.Player, db: Session = Depends(get_db)):
-    db.query(models.Player).filter(models.Player.id == id).update(
+    player = db.query(models.Player).filter(models.Player.id == id)
+    if not player.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Player with id {id} not found')
+    player.update(
         {models.Player.name: request.name, models.Player.surname: request.surname, models.Player.age: request.age,
          models.Player.team: request.team, models.Player.nationality: request.nationality})
     db.commit()
