@@ -12,6 +12,7 @@ class Player(Base):
     team = Column(String)
     nationality = Column(String)
 
+    creator = relationship('User', back_populates="ite,s")
 
 class User(Base):
     __tablename__ = 'users'
