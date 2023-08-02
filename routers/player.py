@@ -1,19 +1,19 @@
 from typing import List
 from fastapi import APIRouter, Depends, status, HTTPException
+import schemas, database, models
 from sqlalchemy.orm import Session
-import database, schemas, models
+
 
 router = APIRouter(
     prefix='/player',
     tags=['Players']
 )
-
 get_db = database.get_db
 
 
-@router.get('/', response_model=List[schemas.ShowPlayer])
+@router.get("/", response_model=List[schemas.ShowPlayer])
 # with response_model we don't display id
-def all_players(db: Session = Depends(get_db())):
+def all_players(db: Session = Depends(get_db)):
     players = db.query(models.Player).all()
     return players
 
