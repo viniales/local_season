@@ -16,14 +16,16 @@ class User(BaseModel):
     password: str
 
 
+class ShowUserInPlayers(BaseModel):
+    name: str
+    email: str
+
+
 class ShowUser(BaseModel):
     name: str
     email: str
     players: List[Player] = []
-
     # "players" must be the same variable as in Models.py file
-    class Config():
-        orm_mode = True
 
 
 class ShowPlayer(BaseModel):
@@ -32,8 +34,5 @@ class ShowPlayer(BaseModel):
     age: int
     team: str
     nationality: str
-    creator: ShowUser
-
+    creator: ShowUserInPlayers
     # "creator" must be the same variable as in Models.py file
-    class Config():
-        orm_mode = True
