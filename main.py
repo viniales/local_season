@@ -4,24 +4,19 @@ import models, schemas
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from hashing import Hash
+from routers import player, user
 
 app = FastAPI()
 
 models.Base.metadata.create_all(engine)
 
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+app.include_router(player.router)
 
 
 @app.post('/player', status_code=status.HTTP_201_CREATED, tags=['players'])
 def create(request: schemas.Player, db: Session = Depends(get_db)):
     new_player = models.Player(name=request.name, surname=request.surname, age=request.age, team=request.team,
-                               nationality=request.nationality)
+                               nationality=request.nationality, user_id=1)
     db.add(new_player)
     db.commit()
     db.refresh(new_player)
