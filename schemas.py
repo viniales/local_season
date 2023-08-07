@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from typing import List
 
+#
+# class Points(BaseModel):
+#     points: int
+#
 
 class Player(BaseModel):
     name: str
@@ -25,6 +29,7 @@ class ShowUser(BaseModel):
     name: str
     email: str
     players: List[Player] = []
+    # creator: List[Points] = []
     # "players" must be the same variable as in Models.py file
 
 
