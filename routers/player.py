@@ -38,3 +38,8 @@ def update(id: int, request: schemas.Player, db: Session = Depends(get_db),
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.ShowPlayer)
 def player(id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
     return play.get_one(id, db)
+
+
+@router.get('/by_teams/{team}', status_code=status.HTTP_200_OK, response_model=List[schemas.ShowPlayer])
+def players(team: str, db: Session = Depends(get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+    return play.get_more(team, db)

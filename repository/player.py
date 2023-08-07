@@ -42,3 +42,11 @@ def update(id: int, request: schemas.Player, db: Session):
          models.Player.team: request.team, models.Player.nationality: request.nationality})
     db.commit()
     return 'updated'
+
+
+def get_more(team: str, db: Session):
+    player = db.query(models.Player).filter(models.Player.team == team)
+    if player is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Player with the team {team} is not available')
+    return player
