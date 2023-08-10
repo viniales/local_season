@@ -27,7 +27,7 @@ class User(Base):
 
     players = relationship("Player", back_populates="creator")
 
-    creator = relationship("UsersPoints", back_populates="user_points")
+    points = relationship("UsersPoints", back_populates="creator")
 
 
 class UsersPoints(Base):
@@ -38,4 +38,4 @@ class UsersPoints(Base):
     points = Column(Integer)
     user_id = Column(Integer, ForeignKey("users.id"))
     #
-    user_points = relationship("User", back_populates="creator")
+    creator = relationship("User", back_populates="points")
