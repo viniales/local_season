@@ -13,7 +13,7 @@ def create(request: schemas.User, db: Session):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='The User already exist')
 
     new_user = models.User(name=request.name, email=request.email, password=Hash.bcrypt(request.password))
-    points = models.UsersPoints(name=request.name, points=0)
+    points = models.UsersPoints(name=request.name, points=10)
     db.add(new_user)
     db.add(points)
     db.commit()
