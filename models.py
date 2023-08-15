@@ -22,6 +22,7 @@ class Match(Base):
     team2 = Column(String)
     result_team1 = Column(Integer)
     result_team2 = Column(Integer)
+    date = Column(String)
 
     match_betting = relationship("MatchBetting", back_populates="match")
 
