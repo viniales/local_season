@@ -16,7 +16,7 @@ class User(BaseModel):
 class ShowUser(BaseModel):
     name: str
     email: str
-    points: List[Points] = []
+    points: int
 
     # "players" must be the same variable as in Models.py file
 
