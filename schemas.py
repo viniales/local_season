@@ -36,6 +36,7 @@ class TokenData(BaseModel):
 
 
 class MatchBetting(BaseModel):
+    match_id: int
     team1: int
     team2: int
 
@@ -46,3 +47,10 @@ class Match(BaseModel):
     result_team1: int
     result_team2: int
     date: str
+
+
+class UserID(BaseModel):
+    name: str
+    email: str
+    password: str
+    id: int
