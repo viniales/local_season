@@ -4,6 +4,7 @@ import schemas, database, models
 import schemas, database, oauth2
 from sqlalchemy.orm import Session
 from repository import match_betting
+from models import User
 
 get_db = database.get_db
 
@@ -20,10 +21,14 @@ router = APIRouter(
 )
 
 
+def get_current_active_user(current_user: schemas.User = Depends(oauth2.get_current_user)):
+    return current_user
+
+
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(request: schemas.MatchBetting, db: Session = Depends(get_db),
            current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return match_betting.create(request, db)
+    return match_betting.create(request, db, get_current_active_user())
 
 #
 # @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
