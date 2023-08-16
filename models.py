@@ -24,8 +24,6 @@ class Match(Base):
     result_team2 = Column(Integer)
     date = Column(String)
 
-    match_betting = relationship("MatchBetting", back_populates="match")
-
 
 class MatchBetting(Base):
     __tablename__ = 'match_batting'
@@ -36,4 +34,3 @@ class MatchBetting(Base):
     prediction_score_team2 = Column(Integer)
 
     user = relationship("User", back_populates='match_betting')
-    match = relationship("Match", back_populates='match_betting')

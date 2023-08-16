@@ -27,8 +27,8 @@ def get_current_active_user(current_user: schemas.User = Depends(oauth2.get_curr
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(request: schemas.MatchBetting, db: Session = Depends(get_db),
-           current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return match_betting.create(request, db, get_current_active_user())
+           current_user: int = Depends(oauth2.get_current_user)):
+    return match_betting.create(request, db, current_user)
 
 #
 # @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
