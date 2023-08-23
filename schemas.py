@@ -54,9 +54,3 @@ class UserID(BaseModel):
     password: str
     id: int
 
-
-class UserNewID(BaseModel):
-    name: str
-    email: str
-    password: str
-    id: int
