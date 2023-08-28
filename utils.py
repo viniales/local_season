@@ -21,9 +21,3 @@ def password_check(password: str, hashed_password: str):
     salt, hashed = hashed_password.split("$")
     return password_hash(password, salt) == hashed
 
-def email_verify(email: str):
-    url = "https://api.hunter.io/v2/email-verifier?email={}&api_key={}".format(email, settings.HUNTER_API_KEY)
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            data = await resp.json()
-            return data["data"]["status"]
