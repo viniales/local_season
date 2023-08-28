@@ -16,8 +16,3 @@ def password_hash(password: str, salt: str = None):
     return enc.hex()
 
 
-# Checking whether the password hash matches the hash from the database
-def password_check(password: str, hashed_password: str):
-    salt, hashed = hashed_password.split("$")
-    return password_hash(password, salt) == hashed
-
