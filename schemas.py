@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import List
 
 
 #
@@ -54,3 +53,4 @@ class UserID(BaseModel):
     email: str
     password: str
     id: int
+
