@@ -1,0 +1,26 @@
+[
+    {
+        "match_id": 1,
+        "team1": "Drużyna A",
+        "team2": "Drużyna B",
+        "date": "2023-08-01",
+        "result_team1": 2,
+        "result_team2": 1
+    },
+    {
+        "match_id": 2,
+        "team1": "Drużyna C",
+        "team2": "Drużyna D",
+        "date": "2023-08-02",
+        "result_team1": 0,
+        "result_team2": 2
+    },
+    {
+        "match_id": 3,
+        "team1": "Drużyna E",
+        "team2": "Drużyna F",
+        "date": "2023-08-03",
+        "result_team1": 3,
+        "result_team2": 3
+    }
+]
