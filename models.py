@@ -45,8 +45,9 @@ class User(Base):
     phone_number = Column(String)
 
 
-class Matches(Base):
+class Match(Base):
     __tablename__ = 'matches'
+
     id = Column(Integer, primary_key=True, index=True)
     team1 = Column(String)
     team2 = Column(String)
