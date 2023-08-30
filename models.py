@@ -44,13 +44,14 @@ class User(Base):
     created_at = Column(DATETIME, default=datetime.datetime.utcnow())
     phone_number = Column(String)
 
-# class Match(Base):
-#     __tablename__ = 'matches'
-#     id = Column(Integer, primary_key=True, index=True)
-#     team1 = Column(String)
-#     team2 = Column(String)
-#     result_team1 = Column(Integer)
-#     result_team2 = Column(Integer)
-#     date = Column(String)
-#
+
+class Matches(Base):
+    __tablename__ = 'matches'
+    id = Column(Integer, primary_key=True, index=True)
+    team1 = Column(String)
+    team2 = Column(String)
+    result_team1 = Column(Integer)
+    result_team2 = Column(Integer)
+    date = Column(String)
+
 #     match_betting = relationship("MatchBetting", back_populates="match")
