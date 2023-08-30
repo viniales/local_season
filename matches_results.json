@@ -22,5 +22,13 @@
         "date": "2023-08-03",
         "result_team1": 3,
         "result_team2": 3
+    },
+    {
+        "match_id": 4,
+        "team1": "Drużyna E",
+        "team2": "Drużyna F",
+        "date": "2023-08-03",
+        "result_team1": null,
+        "result_team2": null
     }
 ]
