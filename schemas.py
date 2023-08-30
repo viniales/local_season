@@ -17,6 +17,17 @@ class UserOut(BaseModel):
     id: int
     email: EmailStr
     created_at: datetime
+    score: int
+
+    class Config:  # this class
+        orm_mode = True
+
+
+class MatchOut(BaseModel):
+    id: int
+    team1: str
+    team2: str
+    date: str
 
     class Config:  # this class
         orm_mode = True
@@ -28,6 +39,7 @@ class MatchBetting(MatchBettingBase):
     created_at: datetime
     owner_id: int
     owner: UserOut
+    match: MatchOut
 
     class Config:  # this class
         orm_mode = True
