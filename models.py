@@ -8,11 +8,12 @@ import datetime
 class MatchBetting(Base):
     __tablename__ = "match_betting"
     betting_id = Column(Integer, primary_key=True, nullable=False)
-    match_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    owner_id = Column(Integer, ForeignKey("matches.id", ondelete="CASCADE"), nullable=False)
+    match_id = Column(Integer, ForeignKey("matches.id", ondelete="CASCADE"), nullable=False)
+    owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     prediction_score_team1 = Column(Integer)
     prediction_score_team2 = Column(Integer)
     created_at = Column(DATETIME, default=datetime.datetime.utcnow())
+    points_awarded = Column(Boolean, default=False)
     owner = relationship("User")
     match = relationship("Match")
     '''relationship automatically creates another property for File, so when we retrieve 
