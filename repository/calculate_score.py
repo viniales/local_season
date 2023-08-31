@@ -23,3 +23,5 @@ def calculate_score(db: Session):
                     user = db.query(models.User).filter(models.User.id == user_id)
                     if user:
                         user.score += 1
+
+    db.commit()
