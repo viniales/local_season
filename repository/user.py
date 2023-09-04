@@ -19,8 +19,4 @@ def create(request: schemas.User, db: Session):
     return new_user
 
 
-def get_one(id, db: Session):
-    user = db.query(models.User).filter(models.User.id == id).first()
-    if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'User with the id {id} is not available')
-    return user
+
