@@ -1,26 +1,26 @@
+from fastapi import status, HTTPException, Depends, APIRouter
+import models, schemas, utils
 from sqlalchemy.orm import Session
-import models, schemas
-from fastapi import status, HTTPException
+from database import get_db
 
 
-def check_exist(request: schemas.User, db: Session):
-    return db.query(models.User).filter(models.User.name == request.name).first()
+def create(user: schemas.UserCreate, db: Session):
+    # hash the password - user.password
+    hashed_password = utils.hash(user.password)
+    user.password = hashed_password
+    new_user = models.User(**user.dict())
+    new_user.score = 0
+    db.add(new_user)  # add to database
+    db.commit()  # then commit it
+    db.refresh(new_user)
+
+    return new_user
 
 
-# def create(request: schemas.User, db: Session):
-#     if check_exist(request, db):
-#         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='The User already exist')
-#
-#     new_user = models.User(name=request.name, email=request.email, password=Hash.bcrypt(request.password))
-#     db.add(new_user)
-#     db.commit()
-#     db.refresh(new_user)
-#
-#     return new_user
-#
-#
-# def get_one(id, db: Session):
-#     user = db.query(models.User).filter(models.User.id == id).first()
-#     if not user:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'User with the id {id} is not available')
-#     return user
+def get_user(id: int, db: Session):
+    user = db.query(models.User).filter(models.User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"User with id: {id}")
+
+    return user
