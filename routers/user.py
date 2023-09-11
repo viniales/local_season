@@ -5,7 +5,7 @@ from database import get_db
 from repository import user as user_repository
 
 
-# tags = is for the docs website for this api, it groups these path ops under 'Users' in the docs
+
 router = APIRouter(
     prefix="/users",
     tags=['Users']
