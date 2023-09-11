@@ -2,7 +2,7 @@ from fastapi import status, HTTPException, Depends, APIRouter
 import models, schemas, utils
 from sqlalchemy.orm import Session
 from database import get_db
-from repository import user
+from repository import user as user_repository
 
 # prefix = adds the string to the beginning of each path op
 # tags = is for the docs website for this api, it groups these path ops under 'Users' in the docs
@@ -14,17 +14,7 @@ router = APIRouter(
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    # hash the password - user.password
-    hashed_password = utils.hash(user.password)
-    user.password = hashed_password
-    new_user = models.User(**user.dict())
-    new_user.score = 0
-    db.add(new_user)  # add to database
-    db.commit()  # then commit it
-    db.refresh(new_user)
-
-    return new_user
-
+    return repoi
 
 @router.get("/{id}", response_model=schemas.UserOut)
 def get_user(id: int, db: Session = Depends(get_db)):
