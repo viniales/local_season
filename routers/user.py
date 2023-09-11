@@ -2,6 +2,7 @@ from fastapi import status, HTTPException, Depends, APIRouter
 import models, schemas, utils
 from sqlalchemy.orm import Session
 from database import get_db
+from repository import user
 
 # prefix = adds the string to the beginning of each path op
 # tags = is for the docs website for this api, it groups these path ops under 'Users' in the docs
