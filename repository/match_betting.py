@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 import models, schemas
 from fastapi import status, HTTPException
-from hashing import Hash
 
 
 # def check_exist(request: schemas.MatchBetting, db: Session):
