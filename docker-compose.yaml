@@ -3,6 +3,9 @@ version: '3'
 services:
   web:
     build: .
+    container_name: fastapi-app
     command: sh -c "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
     ports:
       - 8000:8000
+    volumes:
+      - ./fastapi_app.db:/app/fastapi_app.db:delegated
